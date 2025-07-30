@@ -1,235 +1,52 @@
-<html>
-<head></head>
-<body>
-<table height="500px"width="850px" align="center">
-<tr><td>
-<table bgcolor="maroon" height="25px"width="100%">
-<tr>
-<td ></td>
-</tr>
-</table>
-<br>
-<br>
+### random forest
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
 
-<table  height="70px"  width="100%">
-<tr>
-<td width="80%"><h1> INVOICE </td></h1>
-<td width="20%"><img src="uni.png"></img></td>
-</tr>
-</table>
-
-<table >
-<tr  border="3">
-<td width="790px" ><h4> .Company name </h4> </td>
-<td width="150px"align="center"><h4> Date <hr></h4></td>
-</tr>
-
-<tr>
-<td><h4>.123 Street address</h4></td>
-</tr>
-
-
-<tr>
-<td width="790px"><h4>.City state/post code</h4></td>
-<td width="150px" align="center"><h4>.Invoice no<hr></h4></td>
-</tr>
-
-
-<tr>
-<td><h4>.Phone number</h4></td>
-</tr>
-
-<tr>
-<td width="790px"><h4>.Gmail address</h4></td>
-<td width="150px" align="center"><h4>Payment time(jab da du bhai)</h4><hr> </td>
-</tr>
-</table>
-
-
-<table width="100%">
-<tr>
-
-<td width="40%">Bill to<hr></td>
-<td width="10%"></td>
-<td width="50%"> SHP to <hr></td>
-</tr>
-</table >
-<table width="100%">
-<tr>
-<td width="50%"><h4>.Contacts name</h4></td>
-<td><h4>Name/dept</h4></td>
-</tr>
-
-<tr>
-<td width="50%"><h4>.Client Company</h4></td>
-<td><h4>Client Company Name</h4></td>
-</tr>
-
-<tr>
-<td width="50%"><h4>.Address</h4></td>
-<td><h4>Address</h4></td>
-</tr>
-
-<tr>
-<td width="50%"><h4>.Phone</h4></td>
-<td><h4>Phone</h4></td>
-</tr>
-
-<tr>
-<td>.Email</td>
-</tr>
-
-</table>
-
-<table style="color:white" bgcolor="maroon" border="1" width="100%" >
-<tr>
-<td width="50%" align="center">DESPCRIPTION</td>
-<td width="16%"  align="center">QTY</td>
-<td width="16%"  align="center">UNIT PRICE</td>
-<td width="18%"  align="center">TOTAL</td>
-</tr>
-
-</table>
+# Generate sample data
+X, y = make_classification(n_samples=1000, n_features=4,
+                           n_informative=2, n_redundant=0,
+                           random_state=42, shuffle=False)
 
 
 
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-<table   border="1" width="100%" >
+# Create a Random Forest classifier
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
 
-<tr height="30px">
-<td width="50%"></td>
-<td width="16%"></td>
-<td width="16%"></td>
-<td width="18%"  align="right">0.00</td>
-</tr>
+# Train the classifier
+rf.fit(X_train, y_train)
 
+# Simulate epochs and collect accuracy and loss
+n_epochs = 10
+accuracy_values = []
+loss_values = []
+for epoch in range(n_epochs):
+    # Predict on the test set
+    y_pred = rf.predict(X_test)
 
-<tr bgcolor="#DCDCDC" height="30px">
-<td width="50%"></td>
-<td width="16%"></td>
-<td width="16%"></td>
-<td width="18%" align="right">0.00</td>
-</tr>
+    # Calculate accuracy and loss
+    accuracy = accuracy_score(y_test, y_pred)
+    loss = 1 - accuracy
 
+    accuracy_values.append(accuracy)
+    loss_values.append(loss)
 
-<tr height="30px">
-<td width="50%"></td>
-<td width="16%"></td>
-<td width="16%"></td>
-<td width="18%" align="right">0.00</td>
-</tr>
+# Plot accuracy and loss
+plt.plot(accuracy_values, label='Accuracy')
+plt.plot(loss_values, label='Loss')
 
-<tr bgcolor="#DCDCDC" height="30px">
-<td width="50%"></td>
-<td width="16%"></td>
-<td width="16%"></td>
-<td width="18%" align="right">0.00</td>
-</tr>
+# Set labels and title
+plt.xlabel('Epoch')
+plt.ylabel('Value')
+plt.title('Accuracy and Loss')
 
-<tr  height="30px">
-<td width="50%"></td>
-<td width="16%"></td>
-<td width="16%"></td>
-<td width="18%"align="right">0.00</td>
-</tr>
+# Add legend
+plt.legend()
 
-
-<tr bgcolor="#DCDCDC" height="30px">
-<td width="50%"></td>
-<td width="16%"></td>
-<td width="16%"></td>
-<td width="18%" align="right">0.00</td>
-</tr>
-
-<tr height="30px">
-<td width="50%"></td>
-<td width="16%"></td>
-<td width="16%"></td>
-<td width="18%" align="right">0.00</td>
-</tr>
-<tr bgcolor="#DCDCDC" height="30px">
-<td width="50%"></td>
-<td width="16%"></td>
-<td width="16%"></td>
-<td width="18%"align="right">0.00</td>
-</tr>
-
-<tr height="30px">
-<td width="50%"></td>
-<td width="16%"></td>
-<td width="16%"></td>
-<td width="18%"align="right">0.00</td>
-</tr>
-</table>
-
-
-
-
-
-
-
-
-
-
-<table  width="100%">
-
-<tr height="30px">
-<td width="70%"><h4>Remark/Payment instruction:</h4></td>
-<td width="10%" align="right"><h4>Subtotal</h4></td>
-<td align="right" width="17%">0.00<hr></td>
-</tr>
-</table>
-
-
-<table width="100%">
-<tr>
-<td width="80%"align="right"><h4>Discount</h4></td>
-<td width="17%"align="right"><h4>0.00</h4><hr></td>
-</tr>
-<tr>
-<td width="80%"align="right"><h4>Subtotal Less Discount</h4></td>
-<td width="17%"align="right"><h4>0.00</h4><hr></td>
-</tr>
-<tr>
-<td width="80%"align="right"><h4>TAX Rate</h4></td>
-<td width="17%"align="right"><h4>0.00</h4><hr></td>
-</tr>
-<tr>
-<td width="80%"align="right"><h4>Total TAX</h4></td>
-<td width="17%"align="right"><h4>0.00%</h4><hr></td>
-</tr>
-<tr>
-<td width="80%"align="right"><h4>Shipping/Handling</h4></td>
-<td width="17%"align="right"><h4>0.00<h4><hr></td>
-</tr>
-</tablr>
-<table width="100%">
-<tr>
-<td  width="55%"></td>
-<td  width="45%"><h1><hr></td></h1>
-</table>
-<table width="100%">
-<tr>
-<td width="85%"align="right"><h4>Balance Due $</h4></td>
-<td width="10%"></td>
-<td width="5%"><h4>-</h4></td>
-</tr>
-</table>
-<table width="100%">
-<tr>
-<td  width="85%"></td>
-<td  width="15%"><h1><hr></td></h1>
-</table>
-
-<table bgcolor="maroon" height="25px"width="100%">
-<tr>
-<td ></td>
-</tr>
-</td></tr>
-</table>
-
-
-
-
-</body>
-</html>
+# Show plot
+plt.show()
